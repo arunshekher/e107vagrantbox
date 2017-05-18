@@ -1,0 +1,4 @@
+# Box Related
+.vagrant/*
+www/*
+*.log
