@@ -1,6 +1,8 @@
 # e107 VagrantBox
- An elementary vagrant box configuration arranged for e107 development.
- 
+ An elementary vagrant box configured for e107 development.
+
+ ![e107vagrantbox-up-win](https://cloud.githubusercontent.com/assets/315195/26256529/568c8d00-3cce-11e7-8dc2-00db91cf7710.png)
+
  ![e107vagrantbox-up-linux](https://cloud.githubusercontent.com/assets/315195/26246956/bf1c53c2-3cac-11e7-9714-0443166d07f4.png)
 
 
