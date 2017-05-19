@@ -35,7 +35,9 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 
 ### Point Browser to 10.0.0.7 
 
-![image](https://cloud.githubusercontent.com/assets/315195/26256882/86519f0c-3ccf-11e7-97c5-847afa67da77.png)
+![image](https://cloud.githubusercontent.com/assets/315195/26256882/86519f0c-3ccf-11e7-97c5-847afa67da77.png)  
+
+Point your browser to e107dev.box if you have set up that server name to point to the IP 10.0.0.7  in your hosts file.
 
 #### MySQL Remote Access
 
