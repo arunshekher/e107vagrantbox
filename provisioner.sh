@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Not used but need to start using
+e107dev_box_vhost_conf="/etc/apache2/sites-available/e107dev.box.conf"
 #apache_config_file="/etc/apache2/apache2.conf"
 #apache_vhost_dir="/etc/apache2/sites-available/"
 #mysql_config_file="/etc/mysql/my.cnf"
@@ -43,9 +43,34 @@ service apache2 restart
 #fi
 
 # Apache / Virtual Host Setup
-echo "****************** Provisioner: Virtual Host Setup ******************"
+echo "****************** Provisioner: Setting up virtual host e107dev.box... ******************"
 
-cp /vagrant/e107dev.box.vhost /etc/apache2/sites-available/e107dev.box.conf
+if [ ! -f "${e107dev_box_vhost_conf}" ]; then
+		cat << EOF > ${e107dev_box_vhost_conf}
+<VirtualHost *:80>
+
+    # Admin email, Server Name (domain name) and any aliases
+    ServerName  e107dev.box
+    ServerAlias www.e107dev.box
+
+    # Index file and Document Root (where the public files are located)
+    DocumentRoot /var/www/e107dev.box
+
+    # Custom log file locations
+    LogLevel warn
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    # Allow overrides in .htaccess file
+    <Directory "/var/www/e107dev.box">
+            Options FollowSymLinks
+            AllowOverride All
+    </Directory>
+
+</VirtualHost>
+EOF
+echo "****************** Provisioner: DONE Setting up virtual host: e107dev.box ******************"
+fi
 
 a2ensite e107dev.box.conf
 
