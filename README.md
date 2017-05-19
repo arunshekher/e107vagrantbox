@@ -1,9 +1,10 @@
 # e107 VagrantBox
  An elementary vagrant box configuration arranged for e107 development.
  
+ ![e107vagrantbox-up-linux](https://cloud.githubusercontent.com/assets/315195/26246879/609c80f6-3cac-11e7-90fe-bab66f1a8ead.png)
+
  ![screen shot 2017-05-19 at 12 11 24 pm](https://cloud.githubusercontent.com/assets/315195/26240873/a6a01c02-3c93-11e7-9723-9832e1e76539.png)
 
-![e107vagrantbox-up-linux](https://cloud.githubusercontent.com/assets/315195/26246750/c36fa038-3cab-11e7-86ba-7b45caa45193.png)
 
 # Software included
 e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. The server is provisioned with following versions of web stack software, modules and tools.
