@@ -45,7 +45,7 @@ service apache2 restart
 # Apache / Virtual Host Setup
 echo "****************** Provisioner: Virtual Host Setup ******************"
 
-cp /vagrant/e107devbox.vhost /etc/apache2/sites-available/e107dev.box.conf
+cp /vagrant/e107dev.box.vhost /etc/apache2/sites-available/e107dev.box.conf
 
 a2ensite e107dev.box.conf
 
