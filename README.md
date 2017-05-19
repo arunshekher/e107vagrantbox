@@ -33,6 +33,10 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 * MySQL Password: _e107_
 * MySQL Database: _e107_
 
+### Point Browser to 10.0.0.7 
+
+![image](https://cloud.githubusercontent.com/assets/315195/26256882/86519f0c-3ccf-11e7-97c5-847afa67da77.png)
+
 #### MySQL Remote Access
 
 ![image](https://cloud.githubusercontent.com/assets/315195/26253409/51ecb7ac-3cc4-11e7-870e-894128b1b631.png)
