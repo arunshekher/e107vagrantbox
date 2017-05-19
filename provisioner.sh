@@ -25,7 +25,7 @@ apt-get install -y apache2 apache2-utils
 
 
 # Enable Modules
-echo "****************** Provisioner: Enabling Apache Modules... ******************"
+echo "****************** Provisioner: Enabling additional Apache modules... ******************"
 a2enmod rewrite
 a2enmod headers
 
