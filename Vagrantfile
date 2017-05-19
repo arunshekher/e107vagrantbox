@@ -40,7 +40,13 @@ config.vm.provider "virtualbox" do |vb|
   config.vm.synced_folder "./www/e107dev.box", "/var/www/e107dev.box", create: true, group: "www-data", owner: "www-data"
 
   
-
+  # Add the tty fix as mentioned in issue 1673 on vagrant repo
+  # To avoid 'stdin is not a tty' messages
+  # vagrant provisioning in shell runs bash -l
+  config.vm.provision "fix-no-tty", type: "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
+  end
 
   config.vm.provision :shell, :path => "provisioner.sh"
 
@@ -48,7 +54,7 @@ config.vm.provider "virtualbox" do |vb|
   # Service startups (always run)
   config.vm.provision :shell, {
     path: "initializer.sh",
-    name: "services",
+    name: "initializer",
     run: "always"
   }
 
