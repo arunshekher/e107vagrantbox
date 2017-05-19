@@ -17,7 +17,7 @@ e107 VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 
 
 ### Additional Provisioning and Initialization
-* Creates a virtual host and points to ServerName e107dev.box (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
+* Creates a virtual host with the ServerName e107dev.box (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
 * Clones the current state of e107 Github Repository to to virtual host's document root.
 
 # Dependencies
