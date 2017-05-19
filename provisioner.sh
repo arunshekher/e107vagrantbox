@@ -9,26 +9,36 @@ e107dev_box_vhost_conf="/etc/apache2/sites-available/e107dev.box.conf"
 #e107_web_root="/var/www/e107dev.box"
 
 
-
+# Switch to  Non-Interactive mode
 export DEBIAN_FRONTEND=noninteractive
+
+
+# Update all packages before installing anything
+echo "****************** Provisioner: Running apt-get update... ******************"
 apt-get update
 
+
 # Apache
-echo "****************** Provisioner: Installing apache ******************"
-
-#export DEBIAN_FRONTEND=noninteractive
-
+echo "****************** Provisioner: Installing Apache... ******************"
 # Install Apache
 apt-get install -y apache2 apache2-utils
 
+
+# Enable Modules
+echo "****************** Provisioner: Enabling Apache Modules... ******************"
 a2enmod rewrite
 a2enmod headers
+
+
+# Disable default virtual host
+echo "****************** Provisioner: Disabling Apache default virtual host... ******************"
 a2dissite 000-default.conf
 
-# Restart Apache
-echo "****************** Provisioner: Restarting Apache ******************"
 
+# Restart Apache
+echo "****************** Provisioner: Restarting Apache... ******************"
 service apache2 restart
+
 
 # echo "****************** Provisioner: Setup /var/www to point to /vagrant/www/e107 ******************"
 # rm -rf /var/www
@@ -69,23 +79,25 @@ if [ ! -f "${e107dev_box_vhost_conf}" ]; then
 
 </VirtualHost>
 EOF
-echo "****************** Provisioner: DONE Setting up virtual host: e107dev.box ******************"
+echo "****************** Provisioner: Created e107dev.box virtual host conf file  ******************"
 fi
 
+# Enable e107dev.box
+echo "****************** Provisioner: Enabling e107dev.box virtual host... ******************"
 a2ensite e107dev.box.conf
 
-# Restart Apache
-echo "****************** Provisioner: Restarting Apache ******************"
 
+# Restart Apache
+echo "****************** Provisioner: Restarting Apache... ******************"
 service apache2 restart
 
-# PHP
-echo "****************** Provisioner: Installing PHP ******************"
 
-#export DEBIAN_FRONTEND=noninteractive
+# PHP
+echo "****************** Provisioner: Installing PHP... ******************"
 
 # Install PHP and some modules
 apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-gd php-curl php-xml php-mbstring php-pear libgd-tools libmcrypt-dev mcrypt
+
 
 
 # MySQL
@@ -95,15 +107,14 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password password pas
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password pass"
 
 # Install MySQL
-echo "****************** Provisioner: Installing MySQL ******************"
-
-#export DEBIAN_FRONTEND=noninteractive
-
+echo "****************** Provisioner: Installing MySQL... ******************"
 apt-get install -y mysql-server
 
-# Configure MySQL Password Lifetime
 
+
+# Configure MySQL Password Lifetime
 echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+
 
 # Configure MySQL Remote Access
 
@@ -111,7 +122,7 @@ sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/mysql/m
 
 mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;"
 
-echo "****************** Provisioner: Restarting MySQl ******************"
+echo "****************** Provisioner: Restarting MySQL... ******************"
 service mysql restart
 
 
@@ -123,34 +134,30 @@ mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;"
 mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;"
 
 
-echo "****************** Provisioner: Restarting MySQl ******************"
+echo "****************** Provisioner: Restarting MySQL... ******************"
 service mysql restart
 
 # Add Timezone Support To MySQL
 
 # mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=pass mysql
 
+# Install Git
+echo "****************** Provisioner: Installing Git... ******************"
+apt-get install git -y > /dev/null
 
 
 # Cleanup
-echo "****************** Provisioner: Cleaning Up ******************"
-
-#export DEBIAN_FRONTEND=noninteractive
+echo "****************** Provisioner: Cleaning Up... ******************"
 
 apt-get -y autoremove
-
-#export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y clean
 
 # Restart Apache
-echo "****************** Provisioner: Restarting Apache ******************"
+echo "****************** Provisioner: Restarting Apache... ******************"
 
 service apache2 restart
 
-# Install Git
-echo "****************** Provisioner: Installing Git ******************"
-apt-get install git -y > /dev/null
 
 
 echo "Provisioner Finished "
