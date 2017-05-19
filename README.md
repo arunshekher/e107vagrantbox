@@ -16,10 +16,9 @@ e107 VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
     MySQL Database: e107
 
 
-### Additional Provisioning and Initializations
-* Creates a virtual host and points to the virtual host ServerName e107dev.box (require modifying host machine's hosts file for it to work) 
+### Additional Provisioning and Initialization
+* Creates a virtual host and points to ServerName e107dev.box (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
 * Clones the current state of e107 Github Repository to to virtual host's document root.
-* Creates mysql user and database for e107 installation
 
 # Dependencies
 e107 VagrantBox requires recent versions of Vagrant and VirtualBox installed. Find the latest versions for your operating system at these links.
