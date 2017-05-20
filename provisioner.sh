@@ -2,10 +2,10 @@
 
 e107dev_box_vhost_conf="/etc/apache2/sites-available/e107dev.box.conf"
 php_config_file="/etc/php/7.0/apache2/php.ini"
+xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
 # apache_config_file="/etc/apache2/apache2.conf"
 # apache_vhost_dir="/etc/apache2/sites-available/"
 # mysql_config_file="/etc/mysql/my.cnf"
-# xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
 # e107_web_root="/var/www/e107dev.box"
 
 
@@ -96,12 +96,25 @@ service apache2 restart
 echo "****************** Provisioner: Installing PHP... ******************"
 
 # Install PHP and some modules
-apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-gd php-curl php-xml php-mbstring php-pear libgd-tools libmcrypt-dev mcrypt
+apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-gd php-curl php-xml php-mbstring php-xdebug php-pear libgd-tools libmcrypt-dev mcrypt
 
 # Modify php.ini
 echo "****************** Provisioner: Editing php.ini to display errors... ******************"
 sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
 sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
+
+# Edit xdebug.ini
+echo "****************** Provisioner: Editing xdebug.ini for remote debugging... ******************"
+if [ ! -f "{$xdebug_config_file}" ]; then
+        cat << EOF > ${xdebug_config_file}
+zend_extension=xdebug.so
+xdebug.remote_enable=1
+xdebug.remote_connect_back=1
+xdebug.remote_port=9000
+xdebug.remote_host=10.0.0.7
+EOF
+fi
+
 
 # MySQL
 
