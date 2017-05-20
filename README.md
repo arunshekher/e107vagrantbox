@@ -33,11 +33,11 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 ```sh
 # terminal
 
-git clone https://github.com/arunshekher/e107vagrantbox.git e107vagrantbox  
+$ git clone https://github.com/arunshekher/e107vagrantbox.git e107vagrantbox  
 
-cd e107vagrantbox/  
+$ cd e107vagrantbox/  
 
-vagrant up  
+$ vagrant up  
 ```  
    
 ## Credentials  
