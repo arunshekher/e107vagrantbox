@@ -1,12 +1,12 @@
 #!/bin/bash
 
 e107dev_box_vhost_conf="/etc/apache2/sites-available/e107dev.box.conf"
-#apache_config_file="/etc/apache2/apache2.conf"
-#apache_vhost_dir="/etc/apache2/sites-available/"
-#mysql_config_file="/etc/mysql/my.cnf"
-#php_config_file="/etc/php/7.0/apache2/php.ini"
-#xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
-#e107_web_root="/var/www/e107dev.box"
+php_config_file="/etc/php/7.0/apache2/php.ini"
+# apache_config_file="/etc/apache2/apache2.conf"
+# apache_vhost_dir="/etc/apache2/sites-available/"
+# mysql_config_file="/etc/mysql/my.cnf"
+# xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
+# e107_web_root="/var/www/e107dev.box"
 
 
 # Switch to  Non-Interactive mode
@@ -98,7 +98,10 @@ echo "****************** Provisioner: Installing PHP... ******************"
 # Install PHP and some modules
 apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-gd php-curl php-xml php-mbstring php-pear libgd-tools libmcrypt-dev mcrypt
 
-
+# Modify php.ini
+echo "****************** Provisioner: Editing php.ini to display errors... ******************"
+sed -i "s/display_startup_errors = Off/display_startup_errors = On/g" ${php_config_file}
+sed -i "s/display_errors = Off/display_errors = On/g" ${php_config_file}
 
 # MySQL
 
