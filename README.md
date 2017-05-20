@@ -26,6 +26,16 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
        
     Git 2.7.4
 
+# Usage  
+
+```sh
+git clone https://github.com/arunshekher/e107vagrantbox.git e107vagrantbox  
+
+cd e107vagrantbox/  
+
+vagrant up  
+```  
+   
 ## Credentials  
 * Machine IP Address: _10.0.0.7_
 * Virtual Host ServerName: _e107dev.box_
@@ -43,16 +53,6 @@ Point your browser to e107dev.box if you have set up that server name to point t
 
 ![image](https://cloud.githubusercontent.com/assets/315195/26253409/51ecb7ac-3cc4-11e7-870e-894128b1b631.png)
 
-# Usage  
-
-```sh
-git clone https://github.com/arunshekher/e107vagrantbox.git e107vagrantbox  
-
-cd e107vagrantbox/  
-
-vagrant up  
-```  
-   
    
 ### Additional Provisioning and Initialization
 * Creates a virtual host with the ServerName `e107dev.box` (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
