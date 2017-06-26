@@ -15,13 +15,13 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Update all packages before installing anything
 echo "****************** Provisioner: Running apt-get update... ******************"
-apt-get update
+apt-get update >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 
 # Apache
 echo "****************** Provisioner: Installing Apache... ******************"
 # Install Apache
-apt-get install -y apache2 apache2-utils
+apt-get install -y apache2 apache2-utils >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 
 # Enable Modules
@@ -96,7 +96,9 @@ service apache2 restart
 echo "****************** Provisioner: Installing PHP... ******************"
 
 # Install PHP and some modules
-apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-gd php-curl php-xml php-mbstring php-xdebug php-pear libgd-tools libmcrypt-dev mcrypt
+apt-get install -y php libapache2-mod-php php-mcrypt \
+php-mysql php-gd php-curl php-xml php-mbstring php-xdebug \
+php-pear libgd-tools libmcrypt-dev mcrypt >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 # Modify php.ini
 echo "****************** Provisioner: Editing php.ini to display errors... ******************"
@@ -124,16 +126,17 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password_again passwo
 
 # Install MySQL
 echo "****************** Provisioner: Installing MySQL... ******************"
-apt-get install -y mysql-server
+apt-get install -y mysql-server >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 
 
 # Configure MySQL Password Lifetime
+echo "****************** Provisioner: Configuring MySQL password life-time... ******************"
 echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 
 
 # Configure MySQL Remote Access
-
+echo "****************** Provisioner: Configuring MySQL remote access... ******************"
 sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 
 mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;"
@@ -141,12 +144,15 @@ mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDE
 echo "****************** Provisioner: Restarting MySQL... ******************"
 service mysql restart
 
-
-
+# Create e107 user 
+echo "****************** Provisioner: Creating MySQL 'e107' user with password: 'e107' ... ******************"
 mysql --user="root" --password="pass" -e "CREATE USER 'e107'@'0.0.0.0' IDENTIFIED BY 'e107';"
 mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'0.0.0.0' IDENTIFIED BY 'e107' WITH GRANT OPTION;"
 mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'%' IDENTIFIED BY 'e107' WITH GRANT OPTION;"
 mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;"
+
+# Create e107 database
+echo "****************** Provisioner: Creating MySQL database named 'e107' ... ******************"
 mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;"
 
 
@@ -159,15 +165,16 @@ service mysql restart
 
 # Install Git
 echo "****************** Provisioner: Installing Git... ******************"
-apt-get install git -y > /dev/null
+#apt-get install git -y > /dev/null
+apt-get install git -y >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 
 # Cleanup
 echo "****************** Provisioner: Cleaning Up... ******************"
 
-apt-get -y autoremove
+apt-get -y autoremove >> /vagrant/e107-vagrantbox-build.log 2>&1
 
-apt-get -y clean
+apt-get -y clean >> /vagrant/e107-vagrantbox-build.log 2>&1
 
 # Restart Apache
 echo "****************** Provisioner: Restarting Apache... ******************"
@@ -176,4 +183,4 @@ service apache2 restart
 
 
 
-echo "Provisioner Finished "
+echo "Provisioner (1) DONE Provisioning!"
