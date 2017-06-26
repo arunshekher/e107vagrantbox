@@ -2,7 +2,7 @@
 
 clone107 () {
 	echo "****************** Initilizer: Cloning e107 from Github Repo... ******************"
-	git clone https://github.com/e107inc/e107.git /vagrant/www/e107dev.box
+	git clone https://github.com/e107inc/e107.git /vagrant/www/e107dev.box >> /vagrant/e107-vagrantbox-build.log 2>&1
 }
 
 pulle107 () {
