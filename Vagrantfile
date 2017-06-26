@@ -33,7 +33,7 @@ config.vm.provider "virtualbox" do |vb|
 
   config.vm.hostname = "ubuntu-xenial64-e107vagrant.box"
   config.vm.network :private_network, {
-    ip: "10.0.0.7"
+    ip: "10.7.7.7"
   }
 
 
