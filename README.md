@@ -9,8 +9,8 @@
  ![screen shot 2017-05-19 at 12 11 24 pm](https://cloud.githubusercontent.com/assets/315195/26240873/a6a01c02-3c93-11e7-9723-9832e1e76539.png)
 
 
-# Software included
-e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. The server is provisioned with following versions of web stack software, modules and tools.
+# What's Provisioned?
+e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. The server is provisioned with following versions of web stack software, modules and tools. More added regularly.
 
     Apache 2.4.18
     MySQL 5.7.18
@@ -27,6 +27,8 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
        php-xdebug
 
     Git 2.7.4
+
+    e107 2.1.6 (Dev. Version)
 
 # Usage  
 
