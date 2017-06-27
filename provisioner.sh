@@ -15,13 +15,13 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Update all packages before installing anything
 echo "****************** Provisioner: Running apt-get update... ******************"
-apt-get update >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get update >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 
 # Apache
 echo "****************** Provisioner: Installing Apache... ******************"
 # Install Apache
-apt-get install -y apache2 apache2-utils >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get install -y apache2 apache2-utils >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 
 # Enable Modules
@@ -88,7 +88,7 @@ echo "****************** Provisioner: Installing PHP... ******************"
 # Install PHP and some modules
 apt-get install -y php libapache2-mod-php php-mcrypt \
 php-mysql php-gd php-curl php-xml php-mbstring php-xdebug \
-php-pear libgd-tools libmcrypt-dev mcrypt >> /vagrant/e107-vagrantbox-build.log 2>&1
+php-pear libgd-tools libmcrypt-dev mcrypt >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 # Modify php.ini
 echo "****************** Provisioner: Editing php.ini to display errors... ******************"
@@ -117,7 +117,7 @@ debconf-set-selections <<< "mysql-server mysql-server/root_password_again passwo
 
 # Install MySQL
 echo "****************** Provisioner: Installing MySQL... ******************"
-apt-get install -y mysql-server >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get install -y mysql-server >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 
 
@@ -157,15 +157,15 @@ service mysql restart
 # Install Git
 echo "****************** Provisioner: Installing Git... ******************"
 #apt-get install git -y > /dev/null
-apt-get install git -y >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get install git -y >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 
 # Cleanup
 echo "****************** Provisioner: Cleaning Up... ******************"
 
-apt-get -y autoremove >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get -y autoremove >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
-apt-get -y clean >> /vagrant/e107-vagrantbox-build.log 2>&1
+apt-get -y clean >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 # Restart Apache
 echo "****************** Provisioner: Restarting Apache... ******************"
