@@ -1,13 +1,15 @@
 #!/bin/bash
 
+provision_log="/vagrant/logs/e107vagrantbox-provisioning.log"
+
 clone107 () {
 	echo "--> Initilizer: Cloning e107 from Github Repo..."
-	git clone https://github.com/e107inc/e107.git /vagrant/www/e107dev.box >> /vagrant/e107-vagrantbox-build.log 2>&1
+	git clone https://github.com/e107inc/e107.git /vagrant/www/e107dev.box >> $provision_log 2>&1
 }
 
 pulle107 () {
 	echo "--> Initilizer: Pulling e107 from Github Repo..."
-	cd /vagrant/www/e107dev.box && git pull origin master >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+	cd /vagrant/www/e107dev.box && git pull origin master >> $provision_log 2>&1
 }
 
 # Check internet access using basic ping result to Google's primary DNS servers 

@@ -7,6 +7,7 @@ xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
 # apache_vhost_dir="/etc/apache2/sites-available/"
 # mysql_config_file="/etc/mysql/mysql.conf.d/mysqld.cnf"
 web_logs_dir="/var/www/logs"
+provision_log="/vagrant/logs/e107vagrantbox-provisioning.log"
 
 
 # Switch to  Non-Interactive mode
@@ -15,13 +16,13 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Update all packages before installing anything
 echo "--> Provisioner: Running apt-get update..."
-apt-get update >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get update >> $provision_log 2>&1
 
 
 # Apache
 echo "--> Provisioner: Installing Apache..."
 # Install Apache
-apt-get install -y apache2 apache2-utils >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get install -y apache2 apache2-utils >> $provision_log 2>&1
 
 
 # Enable Modules
@@ -88,7 +89,7 @@ echo "--> Provisioner: Installing PHP & Modules..."
 # Install PHP and some modules
 apt-get install -y php libapache2-mod-php php-mcrypt \
 php-mysql php-gd php-curl php-xml php-mbstring php-xdebug \
-php-pear libgd-tools libmcrypt-dev mcrypt >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+php-pear libgd-tools libmcrypt-dev mcrypt >> $provision_log 2>&1
 
 # Modify php.ini
 echo "--> Provisioner: Editing php.ini to display errors..."
@@ -111,13 +112,13 @@ fi
 
 # MySQL
 
-debconf-set-selections <<< "mysql-server mysql-server/root_password password pass" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+debconf-set-selections <<< "mysql-server mysql-server/root_password password pass" >> $provision_log 2>&1
 
-debconf-set-selections <<< "mysql-server mysql-server/root_password_again password pass" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+debconf-set-selections <<< "mysql-server mysql-server/root_password_again password pass" >> $provision_log 2>&1
 
 # Install MySQL
 echo "--> Provisioner: Installing MySQL..."
-apt-get install -y mysql-server >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get install -y mysql-server >> $provision_log 2>&1
 
 
 
@@ -130,21 +131,21 @@ echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 echo "--> Provisioner: Configuring MySQL remote access..."
 sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;" >> $provision_log 2>&1
 
 echo "--> Provisioner: Restarting MySQL..."
 service mysql restart
 
 # Create mysql user named e107
 echo "--> Provisioner: Creating MySQL user named 'e107' with password: 'e107' ..."
-mysql --user="root" --password="pass" -e "CREATE USER 'e107'@'0.0.0.0' IDENTIFIED BY 'e107';" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'0.0.0.0' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'%' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
-mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "CREATE USER 'e107'@'0.0.0.0' IDENTIFIED BY 'e107';" >> $provision_log 2>&1
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'0.0.0.0' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> $provision_log 2>&1
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'%' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> $provision_log 2>&1
+mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;" >> $provision_log 2>&1
 
 # Create e107 database
 echo "--> Provisioner: Creating MySQL database named 'e107' ..."
-mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;" >> $provision_log 2>&1
 
 
 echo "--> Provisioner: Restarting MySQL..."
@@ -157,15 +158,15 @@ service mysql restart
 # Install Git
 echo "--> Provisioner: Installing Git..."
 #apt-get install git -y > /dev/null
-apt-get install git -y >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get install git -y >> $provision_log 2>&1
 
 
 # Cleanup
 echo "--> Provisioner: Cleaning Up..."
 
-apt-get -y autoremove >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get -y autoremove >> $provision_log 2>&1
 
-apt-get -y clean >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+apt-get -y clean >> $provision_log 2>&1
 
 # Restart Apache
 echo "--> Provisioner: Restarting Apache..."
