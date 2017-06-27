@@ -111,9 +111,9 @@ fi
 
 # MySQL
 
-debconf-set-selections <<< "mysql-server mysql-server/root_password password pass"
+debconf-set-selections <<< "mysql-server mysql-server/root_password password pass" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
-debconf-set-selections <<< "mysql-server mysql-server/root_password_again password pass"
+debconf-set-selections <<< "mysql-server mysql-server/root_password_again password pass" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 # Install MySQL
 echo "--> Provisioner: Installing MySQL..."
@@ -130,21 +130,21 @@ echo "default_password_lifetime = 0" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 echo "--> Provisioner: Configuring MySQL remote access..."
 sed -i '/^bind-address/s/bind-address.*=.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
 
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;"
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO root@'0.0.0.0' IDENTIFIED BY 'pass' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 echo "--> Provisioner: Restarting MySQL..."
 service mysql restart
 
-# Create e107 user 
-echo "--> Provisioner: Creating MySQL 'e107' user with password: 'e107' ..."
-mysql --user="root" --password="pass" -e "CREATE USER 'e107'@'0.0.0.0' IDENTIFIED BY 'e107';"
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'0.0.0.0' IDENTIFIED BY 'e107' WITH GRANT OPTION;"
-mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'%' IDENTIFIED BY 'e107' WITH GRANT OPTION;"
-mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;"
+# Create mysql user named e107
+echo "--> Provisioner: Creating MySQL user named 'e107' with password: 'e107' ..."
+mysql --user="root" --password="pass" -e "CREATE USER 'e107'@'0.0.0.0' IDENTIFIED BY 'e107';" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'0.0.0.0' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "GRANT ALL ON *.* TO 'e107'@'%' IDENTIFIED BY 'e107' WITH GRANT OPTION;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
+mysql --user="root" --password="pass" -e "FLUSH PRIVILEGES;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 # Create e107 database
 echo "--> Provisioner: Creating MySQL database named 'e107' ..."
-mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;"
+mysql --user="root" --password="pass" -e "CREATE DATABASE IF NOT EXISTS e107 DEFAULT CHARACTER SET = utf8 DEFAULT COLLATE = utf8_unicode_ci;" >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 
 
 echo "--> Provisioner: Restarting MySQL..."

@@ -7,7 +7,7 @@ clone107 () {
 
 pulle107 () {
 	echo "--> Initilizer: Pulling e107 from Github Repo..."
-	cd /vagrant/www/e107dev.box && git pull origin master
+	cd /vagrant/www/e107dev.box && git pull origin master >> /vagrant/logs/e107vagrantbox-provisioning.log 2>&1
 }
 
 # Check internet access using basic ping result to Google's primary DNS servers 
