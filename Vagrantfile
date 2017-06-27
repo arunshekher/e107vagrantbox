@@ -19,7 +19,7 @@ end
 
 Vagrant.configure "2" do |config|
   config.vm.box = "ubuntu/xenial64"
-  # config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20170516.0.0/providers/virtualbox.box"
+  #config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20170516.0.0/providers/virtualbox.box"
   config.vm.box_url = "https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box"
   config.vm.define "e107vagrantbox" do |e107vagrantbox|
   end
@@ -38,7 +38,7 @@ config.vm.provider "virtualbox" do |vb|
 
   config.vm.boot_timeout = 500
 
-  # config.vm.post_up_message = "Hello This is a Post UP Message!"
+  config.vm.post_up_message = "Virtual machine set up is now complete. You can visit the IP 10.0.0.7 in your browser to complete e107 installation. To ssh to this virtual machine you can enter 'vagrant ssh' in your terminal, to shutdown use 'vagrant halt', to restart use 'vagrant reload' and to destroy the VM use 'vagrant destroy'. For help enter 'vagrant -h'"
 
   config.vm.synced_folder "./www/e107dev.box", "/var/www/e107dev.box", create: true, group: "www-data", owner: "www-data"
 

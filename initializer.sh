@@ -1,12 +1,12 @@
 #!/bin/bash
 
 clone107 () {
-	echo "****************** Initilizer: Cloning e107 from Github Repo... ******************"
+	echo "--> Initilizer: Cloning e107 from Github Repo..."
 	git clone https://github.com/e107inc/e107.git /vagrant/www/e107dev.box >> /vagrant/e107-vagrantbox-build.log 2>&1
 }
 
 pulle107 () {
-	echo "****************** Initilizer: Pulling e107 from Github Repo... ******************"
+	echo "--> Initilizer: Pulling e107 from Github Repo..."
 	cd /vagrant/www/e107dev.box && git pull origin master
 }
 
@@ -26,7 +26,7 @@ if [[ $ping_result == *bytes?from* ]]; then
 		pulle107
 	fi
 else
-	echo "No internet access available. e107 package fetching/updation from Github skipped..."
+	echo "No internet access available. Skipping e107 package fetching/updation from Github..."
 fi
 
 
@@ -34,4 +34,4 @@ fi
 
 
 
-echo "****************** Initilizer: Finished! ******************"
+echo "*** Initilizer: Finished! ***"
