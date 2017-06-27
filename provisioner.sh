@@ -5,8 +5,8 @@ php_config_file="/etc/php/7.0/apache2/php.ini"
 xdebug_config_file="/etc/php/7.0/mods-available/xdebug.ini"
 # apache_config_file="/etc/apache2/apache2.conf"
 # apache_vhost_dir="/etc/apache2/sites-available/"
-# mysql_config_file="/etc/mysql/my.cnf"
-# e107_web_root="/var/www/e107dev.box"
+# mysql_config_file="/etc/mysql/mysql.conf.d/mysqld.cnf"
+web_logs_dir="/var/www/logs"
 
 
 # Switch to  Non-Interactive mode
@@ -40,18 +40,6 @@ echo "****************** Provisioner: Restarting Apache... ******************"
 service apache2 restart
 
 
-# echo "****************** Provisioner: Setup /var/www to point to /vagrant/www/e107 ******************"
-# rm -rf /var/www
-# ln -fs /vagrant/www/ /var/www
-
-#if [ ! -h /var/www ]; 
-#then 
-#    mkdir /vagrant/www
-#    rm -rf /var/www 
-#    ln -s /vagrant/www /var/www
-#    service apache2 restart
-#fi
-
 # Apache / Virtual Host Setup
 echo "****************** Provisioner: Setting up virtual host e107dev.box... ******************"
 
@@ -68,11 +56,11 @@ if [ ! -f "${e107dev_box_vhost_conf}" ]; then
 
     # Custom log file locations
     LogLevel warn
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog ${web_logs_dir}/e107dev.box-apache-error.log
+    CustomLog ${web_logs_dir}/e107dev.box-apache-access.log combined
 
     # Allow overrides in .htaccess file
-    <Directory "/var/www/e107dev.box">
+    <Directory /var/www/e107dev.box>
             Options FollowSymLinks
             AllowOverride All
     </Directory>
@@ -80,6 +68,8 @@ if [ ! -f "${e107dev_box_vhost_conf}" ]; then
 </VirtualHost>
 EOF
 echo "****************** Provisioner: Created e107dev.box virtual host conf file  ******************"
+else
+    echo "Provisioner: /etc/apache2/sites-available/e107dev.box.conf already present."
 fi
 
 # Enable e107dev.box
@@ -114,6 +104,7 @@ xdebug.remote_enable=1
 xdebug.remote_connect_back=1
 xdebug.remote_port=9000
 xdebug.remote_host=10.0.0.7
+xdebug.remote_log=${web_logs_dir}/xdebug.log
 EOF
 fi
 

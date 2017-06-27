@@ -19,7 +19,7 @@ end
 
 Vagrant.configure "2" do |config|
   config.vm.box = "ubuntu/xenial64"
-  #config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20170516.0.0/providers/virtualbox.box"
+  # config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20170516.0.0/providers/virtualbox.box"
   config.vm.box_url = "https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box"
   config.vm.define "e107vagrantbox" do |e107vagrantbox|
   end
@@ -36,8 +36,13 @@ config.vm.provider "virtualbox" do |vb|
     ip: "10.0.0.7"
   }
 
+  config.vm.boot_timeout = 500
+
+  # config.vm.post_up_message = "Hello This is a Post UP Message!"
 
   config.vm.synced_folder "./www/e107dev.box", "/var/www/e107dev.box", create: true, group: "www-data", owner: "www-data"
+
+  config.vm.synced_folder "./logs", "/var/www/logs", create: true, group: "www-data", owner: "www-data"
 
   
   # Add the tty fix as mentioned in issue 1673 on vagrant repo
