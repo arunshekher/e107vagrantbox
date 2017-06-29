@@ -30,6 +30,12 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 
     e107 2.1.6 (Dev. Version)
 
+# Dependencies
+e107-VagrantBox requires recent versions of Vagrant and VirtualBox installed. Find the latest versions for your operating system at these links.
+
+https://www.vagrantup.com/downloads.html  
+https://www.virtualbox.org/wiki/Downloads  
+
 # Usage  
 
 ```sh
@@ -43,11 +49,18 @@ $ vagrant up
 ```  
    
 ## Credentials  
-* Machine IP Address: _10.0.0.7_
-* Virtual Host ServerName: _e107dev.box_
-* MySQL User: _e107_
-* MySQL Password: _e107_
-* MySQL Database: _e107_
++ Machine IP Address: `10.0.0.7`
++ Virtual Host ServerName: `e107dev.box`
++ MySQL User: `e107`
++ MySQL Password: `e107`
++ MySQL Database: `e107`
++ MySQL Host:
+    + Local: `localhost`
+    + Remote: `10.0.0.7`
+     
+    
++ MySQL root user: `root`
++ MySQL root user: `pass`
 
 ### Point Browser to 10.0.0.7 
 
@@ -64,10 +77,6 @@ Point your browser to e107dev.box if you have set up that server name to point t
 * Creates a virtual host with the ServerName `e107dev.box` (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
 * Clones the current state of e107 Github Repository to to virtual host's document root.
 
-# Dependencies
-e107-VagrantBox requires recent versions of Vagrant and VirtualBox installed. Find the latest versions for your operating system at these links.
 
-https://www.vagrantup.com/downloads.html  
-https://www.virtualbox.org/wiki/Downloads  
 
 
