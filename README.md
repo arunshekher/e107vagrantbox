@@ -1,4 +1,6 @@
 # e107VagrantBox
+
+[![Join the chat at https://gitter.im/e107vagrantbox/Lobby](https://badges.gitter.im/e107vagrantbox/Lobby.svg)](https://gitter.im/e107vagrantbox/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
  An elementary vagrant box configured for e107 development.
 
  ![e107vagrantbox-up-win](https://cloud.githubusercontent.com/assets/315195/26256529/568c8d00-3cce-11e7-8dc2-00db91cf7710.png)
@@ -50,7 +52,7 @@ $ vagrant up
 ## Credentials
 You'll need them in the next step:   
 + Machine IP Address: `10.0.0.7`
-+ Virtual Host ServerName: `e107dev.box` (only available if you set it up in your hosts file.)
++ Virtual Host ServerName: `e107dev.box`
 + MySQL User: `e107`
 + MySQL Password: `e107`
 + MySQL Database: `e107`
