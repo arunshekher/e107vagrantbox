@@ -1,4 +1,4 @@
-# e107 VagrantBox
+# e107VagrantBox
  An elementary vagrant box configured for e107 development.
 
  ![e107vagrantbox-up-win](https://cloud.githubusercontent.com/assets/315195/26256529/568c8d00-3cce-11e7-8dc2-00db91cf7710.png)
@@ -10,7 +10,7 @@
 
 
 # What's Provisioned?
-e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. The server is provisioned with following versions of web stack software, modules and tools. More added regularly.
+e107VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. The server is provisioned with following versions of web stack software, modules and tools. More added regularly.
 
     Apache 2.4.18
     MySQL 5.7.18
@@ -28,29 +28,29 @@ e107-VagrantBox is built on Ubuntu 16.04.2 LTS (Xenial)64-bit base vagrant box. 
 
     Git 2.7.4
 
-    e107 2.1.6 (Dev. Version)
+    e107 (Current Dev. Version)
 
-# Dependencies
-e107-VagrantBox requires recent versions of Vagrant and VirtualBox installed. Find the latest versions for your operating system at these links.
+# Installation
+e107VagrantBox requires recent versions of Vagrant and VirtualBox installed. Find the latest versions for your operating system at these links.
 
-https://www.vagrantup.com/downloads.html  
-https://www.virtualbox.org/wiki/Downloads  
+[Vagrant Downlod](https://www.vagrantup.com/downloads.html)  
+[VirtualBox Download](https://www.virtualbox.org/wiki/Downloads)  
 
-# Usage  
+# Usage
+Assuming that you have successfully installed the current versions of VirtualBox and Vagrant. Clone this repository to a location of your choice in your file system and run the command 'vagrant up' within the cloned directory.
 
 ```sh
-# terminal
-
-$ git clone https://github.com/arunshekher/e107vagrantbox.git e107vagrantbox  
+$ git clone https://github.com/arunshekher/e107vagrantbox.git
 
 $ cd e107vagrantbox/  
 
 $ vagrant up  
 ```  
    
-## Credentials  
+## Credentials
+You'll need them in the next step:   
 + Machine IP Address: `10.0.0.7`
-+ Virtual Host ServerName: `e107dev.box`
++ Virtual Host ServerName: `e107dev.box` (only available if you set it up in your hosts file.)
 + MySQL User: `e107`
 + MySQL Password: `e107`
 + MySQL Database: `e107`
@@ -63,6 +63,7 @@ $ vagrant up
 + MySQL root user: `pass`
 
 ### Point Browser to 10.0.0.7 
+Begin e107 installation process by pointing your browser to the above given machine IP address. Use the credentials provided above to finish off e107 installation. Start developing something awesome for e107!
 
 ![image](https://cloud.githubusercontent.com/assets/315195/26256882/86519f0c-3ccf-11e7-97c5-847afa67da77.png)  
 
@@ -73,9 +74,8 @@ Point your browser to e107dev.box if you have set up that server name to point t
 ![image](https://cloud.githubusercontent.com/assets/315195/26253409/51ecb7ac-3cc4-11e7-870e-894128b1b631.png)
 
    
-### Additional Provisioning and Initialization
-* Creates a virtual host with the ServerName `e107dev.box` (modify host machine's hosts file to map ServerName to vagrant box's ip: 10.0.0.7 ) 
-* Clones the current state of e107 Github Repository to to virtual host's document root.
+### Additional - Optional Setup
+* Modify host machine's hosts file to map ServerName `e107dev.box` to vagrant box's ip: 10.0.0.7
 
 
 
