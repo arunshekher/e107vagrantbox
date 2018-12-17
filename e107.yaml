@@ -1,0 +1,33 @@
+---
+ip: "10.0.0.7"
+# memory: 1024
+# cpus: 2
+
+# 71, 70, 56, 55, 54, 53
+php: "7.0"
+
+# authorize:
+#   - ~/.ssh/id_rsa.pub
+#   - ~/.ssh/id_dsa.pub
+
+# keys:
+#   - ~/.ssh/id_rsa
+#   - ~/.ssh/id_dsa
+
+# networking:
+#   - public: true
+
+# folders:
+#   - map: www/e107.local
+#     to: /home/vagrant/www/e107.local
+
+# sites:
+#   - hostname: e107.local
+#     to: /home/vagrant/www/e107.local
+#     git: https://github.com/e107inc/e107.git
+#     plugins:
+#       - name: nodejs
+#         git: https://github.com/lonalore/nodejs
+
+# databases:
+#     - e107
